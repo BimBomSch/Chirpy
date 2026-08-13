@@ -7,3 +7,10 @@ VALUES (
     $1
 )
 RETURNING *;
+
+-- name: CheckUser :one
+SELECT CASE
+    WHEN EXISTS (SELECT 1 FROM users WHERE id = $1)
+    THEN TRUE
+    ELSE FALSE
+END as user_exists;
